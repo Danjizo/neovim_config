@@ -47,6 +47,26 @@ return packer.startup(function(use)
   use "wbthomason/packer.nvim" -- Have packer manage itself
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
+  --
+  -- Tree-sitter
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+          local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+          ts_update()
+      end,
+      config = require("plugin_configs/treesitter"),
+  }
+
+  -- Neorg
+  use {
+    "nvim-neorg/neorg",
+    ft = "norg",     -- .norg files cause this plugin to load (lazy loading)
+    after = "nvim-treesitter", 
+    run = ":Neorg sync-parsers",
+    requires = "nvim-lua/plenary.nvim",
+    config = require("plugin_configs/neorg"),
+}
 
   -- Colorscheme plugins
   use "sainnhe/gruvbox-material"                    -- Gruvbox-material theme
