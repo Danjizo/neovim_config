@@ -1,5 +1,4 @@
-function configure()
-    print "Setting up Neorg"
+return function()
     require('neorg').setup( {
         load = {
             ["core.defaults"] = {}, -- Loads default behaviour
@@ -8,12 +7,13 @@ function configure()
                 config = {
                     workspaces = {
                         notes = "~/notes",
+                        ceh = "~/notes/ceh",
+                        work = "~/work",
+                        linux = "~/notes/linux",
                     },
+                    default_workspace = "notes",
                 },
             },
         },
     } )
 end
-
-return configure
-

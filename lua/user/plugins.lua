@@ -41,6 +41,7 @@ packer.init( {
   },
 } )
 
+
 -- Install your plugins here
 return packer.startup(function(use)
   -- My plugins here
@@ -51,22 +52,22 @@ return packer.startup(function(use)
   -- Tree-sitter
   use {
       'nvim-treesitter/nvim-treesitter',
+      config = require("plugin_configs/treesitter"),
       run = function()
           local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
           ts_update()
       end,
-      config = require("plugin_configs/treesitter"),
   }
 
   -- Neorg
   use {
     "nvim-neorg/neorg",
-    ft = "norg",     -- .norg files cause this plugin to load (lazy loading)
-    after = "nvim-treesitter", 
+    --ft = "norg",     -- .norg files cause this plugin to load (lazy loading)
+    --after = "nvim-treesitter", 
+    config = require("plugin_configs/neorg"),
     run = ":Neorg sync-parsers",
     requires = "nvim-lua/plenary.nvim",
-    config = require("plugin_configs/neorg"),
-}
+  }
 
   -- Colorscheme plugins
   use "sainnhe/gruvbox-material"                    -- Gruvbox-material theme
